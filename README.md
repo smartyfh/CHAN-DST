@@ -1,5 +1,3 @@
-This repo was forked from [here](https://github.com/ictnlp/CHAN-DST).
-
 # CHAN-DST
 
 Code for our ACL 2020 paper: **A Contextual Hierarchical Attention Network with Adaptive Objective for Dialogue State Tracking. Yong Shan, Zekang Li, Jinchao Zhang, Fandong Meng, Yang Feng, Cheng Niu, Jie Zhou. ACL 2020 *(Long)***. [[arxiv](https://arxiv.org/abs/2006.01554)]
