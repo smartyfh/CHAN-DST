@@ -793,10 +793,7 @@ def main():
                 {'params': [p for n, p in param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0, 'lr': args.learning_rate},
             ]
             return optimizer_grouped_parameters
-        if n_gpu == 1:
-            optimizer_grouped_parameters = get_optimizer_grouped_parameters(model)
-        else:
-            optimizer_grouped_parameters = get_optimizer_grouped_parameters(model.module)
+        optimizer_grouped_parameters = get_optimizer_grouped_parameters(model)
 
         t_total = num_train_steps
 
