@@ -1,0 +1,4 @@
+python3.6 -m venv venv
+source venv/bin/activate
+pip install torch==1.0 tqdm numpy pytorch_pretrained_bert tensorboardx
+

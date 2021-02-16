@@ -478,9 +478,6 @@ def main():
                         help="Bert pre-trained model selected in the list: bert-base-uncased, "
                              "bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, "
                              "bert-base-multilingual-cased, bert-base-chinese.")
-    parser.add_argument("--bert_dir", default='/home/.pytorch_pretrained_bert',
-                        type=str, required=False,
-                        help="The directory of the pretrained BERT model")
     parser.add_argument("--task_name",
                         default=None,
                         type=str,
@@ -687,10 +684,7 @@ def main():
     num_labels = [len(labels) for labels in label_list] # number of slot-values in each slot-type
 
     # tokenizer
-    vocab_dir = os.path.join(args.bert_dir, '%s-vocab.txt' % args.bert_model)
-    if not os.path.exists(vocab_dir):
-        raise ValueError("Can't find %s " % vocab_dir)
-    tokenizer = BertTokenizer.from_pretrained(vocab_dir, do_lower_case=args.do_lower_case)
+    tokenizer = BertTokenizer.from_pretrained(args.bert_model, do_lower_case=args.do_lower_case)
 
     num_train_steps = None
     accumulation = False
@@ -799,10 +793,7 @@ def main():
                 {'params': [p for n, p in param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0, 'lr': args.learning_rate},
             ]
             return optimizer_grouped_parameters
-        if n_gpu == 1:
-            optimizer_grouped_parameters = get_optimizer_grouped_parameters(model)
-        else:
-            optimizer_grouped_parameters = get_optimizer_grouped_parameters(model.module)
+        optimizer_grouped_parameters = get_optimizer_grouped_parameters(model)
 
         t_total = num_train_steps
 
@@ -1208,7 +1199,6 @@ def save_configure(args, num_labels, ontology):
                  "distance_metric": args.distance_metric,
                  "fix_utterance_encoder": args.fix_utterance_encoder,
                  "task_name": args.task_name,
-                 "bert_dir": args.bert_dir,
                  "bert_model": args.bert_model,
                  "do_lower_case": args.do_lower_case,
                  "ontology": ontology}
